@@ -27,17 +27,17 @@ class PlaceDetailScreen extends StatelessWidget {
               width: double.infinity,
             ),
           ),
-          SizedBox(
-            height: 10,
-          ),
-          Text(
-            selectedPlace.location!.address!,
-            textAlign: TextAlign.center,
-            style: const TextStyle(
-              color: Colors.grey,
-              fontSize: 20,
-            ),
-          ),
+          // SizedBox(
+          //   height: 10,
+          // ),
+          // Text(
+          //   selectedPlace.location!.address!,
+          //   textAlign: TextAlign.center,
+          //   style: const TextStyle(
+          //     color: Colors.grey,
+          //     fontSize: 20,
+          //   ),
+          // ),
           SizedBox(
             height: 10,
           ),

@@ -45,8 +45,8 @@ class PlacesListScreen extends StatelessWidget {
                                     FileImage(greatplace.items[i].image),
                               ),
                               title: Text(greatplace.items[i].title),
-                              subtitle:
-                                  Text(greatplace.items[i].location!.address!),
+                              // subtitle:
+                              //     Text(greatplace.items[i].location!.address!),
                               onTap: () {
                                 Navigator.of(context).pushNamed(
                                   PlaceDetailScreen.routeName,

@@ -3,7 +3,7 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:great_places/screens/map_screen.dart';
 import 'package:location/location.dart';
 
-import '../helpers/location_helper.dart';
+// import '../helpers/location_helper.dart';
 
 class LocationInput extends StatefulWidget {
   final Function onSelectPlace;
@@ -14,12 +14,27 @@ class LocationInput extends StatefulWidget {
 }
 
 class _LocationInputState extends State<LocationInput> {
-  String? _previewImageUrl;
+  // String? _previewImageUrl;
+  GoogleMap? _previewMap;
   void _showPreview(double lat, double lng) {
-    final staticMapImageUrl = LocationHelper.generateLocationPreviewImage(
-        latitude: lat, longitude: lng);
+    // final staticMapImageUrl = LocationHelper.generateLocationPreviewImage(
+    // latitude: lat, longitude: lng);
+    print("lat : $lat   long: $lng");
+    final staticMap = GoogleMap(
+      initialCameraPosition: CameraPosition(
+        target: LatLng(lat, lng),
+        zoom: 16,
+      ),
+      markers: {
+        Marker(
+          markerId: const MarkerId('m2'),
+          position: LatLng(lat, lng),
+        ),
+      },
+    );
     setState(() {
-      _previewImageUrl = staticMapImageUrl;
+      //   _previewImageUrl = staticMapImageUrl;
+      _previewMap = staticMap;
     });
   }
 
@@ -37,7 +52,7 @@ class _LocationInputState extends State<LocationInput> {
     final selectedLocation = await Navigator.of(context).push<LatLng>(
       MaterialPageRoute(
         fullscreenDialog: true,
-        builder: (ctx) => MapScreen(
+        builder: (ctx) => const MapScreen(
           isSelecting: true,
         ),
       ),
@@ -59,16 +74,11 @@ class _LocationInputState extends State<LocationInput> {
           ),
           height: 170,
           width: double.infinity,
-          child: _previewImageUrl == null
-              ? const Text(
-                  'No Location Chosen',
-                  textAlign: TextAlign.center,
-                )
-              : Image.network(
-                  _previewImageUrl!,
-                  fit: BoxFit.cover,
-                  width: double.infinity,
-                ),
+          child: _previewMap ??
+              const Text(
+                'No Location Chosen',
+                textAlign: TextAlign.center,
+              ),
         ),
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
